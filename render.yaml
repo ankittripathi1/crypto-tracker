@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: backend
+    rootDir: server
+    env: node
+    buildCommand: npm install && npm run build && npx prisma migrate deploy
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: "4000"
+      - key: DATABASE_URL
+        sync: false # Set this in Render dashboard or via Render API
+  - type: static
+    name: frontend
+    rootDir: client
+    buildCommand: npm install && npm run build
+    publishPath: dist
+    env: node

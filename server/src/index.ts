@@ -16,7 +16,7 @@ app.use(cors(
 ))
 app.use(requestLogger);
 
-const PORT = 4000
+const PORT = process.env.PORT || 4000
 
 app.get("/health",(req:Request,res:Response)=>{
     res.json({

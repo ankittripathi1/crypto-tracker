@@ -1,0 +1,46 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../build/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model CurrentData {
+    id              String    @id @default(cuid())
+    coinId          String    @unique
+    name            String
+    symbol          String
+    price           Float
+    marketCap       Float
+    changePercent   Float     @map("changePercent")
+
+    timestamp       DateTime  @default(now())
+    createdAt       DateTime  @default(now())
+    updatedAt       DateTime  @updatedAt
+
+    @@map("current_data")
+}
+
+model HistoryData {
+    id              String    @id @default(cuid())
+    coinId          String    @map("coin_id")
+    name            String
+    symbol          String
+    price           Float
+    marketCap       Float     @map("market_cap")
+    changePercent   Float     @map("change_percent")
+    timestamp       DateTime
+    createdAt       DateTime  @default(now()) @map("created_at")
+
+    @@map("history_data")
+    @@index([coinId, timestamp])
+}

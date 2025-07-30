@@ -1,9 +1,9 @@
-import cors from 'cors'
-import express, { Request, Response } from 'express'
-import { requestLogger } from './middleware/requestLogger';
-import { errorHandler } from './middleware/errorHandler';
-import coinRoutes from './routes/coinRoutes';
-import { PriceUpdateJob } from './jobs/priceUpdateJob';
+const cors = require('cors');
+const express = require('express');
+const { requestLogger } = require('./middleware/requestLogger');
+const { errorHandler } = require('./middleware/errorHandler');
+const coinRoutes = require('./routes/coinRoutes');
+const { PriceUpdateJob } = require('./jobs/priceUpdateJob');
 
 const app = express();
 
@@ -18,7 +18,7 @@ app.use(requestLogger);
 
 const PORT = process.env.PORT || 4000
 
-app.get("/health",(req:Request,res:Response)=>{
+app.get("/health",(req,res)=>{
     res.json({
         status: 'OK',
         timestamp: new Date().toISOString(),
@@ -28,7 +28,7 @@ app.get("/health",(req:Request,res:Response)=>{
 
 app.use('/api', coinRoutes);
 
-app.use((req:Request,res:Response) => {
+app.use((req,res) => {
     res.status(404).json({
     success:false,
     error:'Route not found',

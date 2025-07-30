@@ -1,14 +1,13 @@
-import { CoinData , CoinGeckoResponse} from "../types/coin";
-import axios from "axios";
+const axios = require("axios");
 
 class CoinGeckoService {
-    private readonly baseUrl: string;
+    baseUrl;
 
     constructor(){
         this.baseUrl = process.env.COINGECKO_API_URL || 'https://api.coingecko.com/api/v3';
     }
 
-    async fetchCoinsData(): Promise<CoinData[]>{
+    async fetchCoinsData(){
         try{
             const response = await axios.get(`${this.baseUrl}/coins/markets`, {
             params: {
@@ -26,7 +25,7 @@ class CoinGeckoService {
         }
     }
 
-    private transformCoinData( coin: CoinGeckoResponse):CoinData{
+    transformCoinData( coin){
         return {
             coinId: coin.id,
             name: coin.name,
@@ -39,4 +38,6 @@ class CoinGeckoService {
     }
 }
 
-export const coinGeckoService = new CoinGeckoService();
+const coinGeckoService = new CoinGeckoService();
+
+module.exports = { coinGeckoService };

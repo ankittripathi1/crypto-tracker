@@ -1,9 +1,8 @@
-import { prisma } from "../config/database";
-import { CoinData } from "../types/coin";
-import { coinGeckoService } from "./coinGeckoService";
+const { prisma } = require("../config/database");
+const { coinGeckoService } = require("./coinGeckoService");
 
-export class CoinService{
-    async getCurrentCoinsData(): Promise<CoinData[]>{
+class CoinService{
+    async getCurrentCoinsData(){
         try{
             return await coinGeckoService.fetchCoinsData();
         }catch(error){
@@ -13,7 +12,7 @@ export class CoinService{
 
     }
 
-    async storePriceSnapshot(): Promise<{success:boolean; count:number}>{
+    async storePriceSnapshot(){
         try{
             const coinData = await  coinGeckoService.fetchCoinsData();
             const currentDataPromises = coinData.map(coin =>
@@ -61,7 +60,7 @@ export class CoinService{
         }
     }
 
-    async getCoinHistory(coinId: string): Promise<any[]> {
+    async getCoinHistory(coinId) {
         try{
 
             const historyData = await prisma.historyData.findMany({
@@ -70,7 +69,7 @@ export class CoinService{
                 take: 168
             })
 
-            return historyData.map((record:CoinData) => ({
+            return historyData.map(record => ({
                 coinId: record.coinId,
                 name: record.name,
                 symbol: record.symbol,
@@ -86,7 +85,7 @@ export class CoinService{
         }
     }
 
-    async getAllCoinHistory(): Promise<any[]> {
+    async getAllCoinHistory() {
         try{
 
             const historyData = await prisma.historyData.findMany({
@@ -94,7 +93,7 @@ export class CoinService{
                 take: 168
             })
 
-            return historyData.map((record:CoinData) => ({
+            return historyData.map(record => ({
                 coinId: record.coinId,
                 name: record.name,
                 symbol: record.symbol,
@@ -110,3 +109,5 @@ export class CoinService{
         }
     }
 }
+
+module.exports = { CoinService };

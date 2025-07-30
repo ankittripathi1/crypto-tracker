@@ -1,13 +1,11 @@
-import { Request, Response } from "express";
-import { CoinService } from "../services/coinService"
-import { ApiResponse } from "../types/coin";
+const { CoinService } = require("../services/coinService")
 
 const coinService = new CoinService();
 
-    export const getCoins = async (req: Request, res:Response) => {
+    const getCoins = async (req, res) => {
         try{
             const coinData = await coinService.getCurrentCoinsData();
-            const response: ApiResponse<any> = {
+            const response = {
                 success: true,
                 data: coinData,
                 message: "Coins data fetched successfully"
@@ -16,7 +14,7 @@ const coinService = new CoinService();
         }catch(error){
             console.error('Error in getCoins:', error);
 
-            const response: ApiResponse<any> = {
+            const response = {
                 success: false,
                 message: "Failed to fetch coins data"
             }
@@ -25,11 +23,11 @@ const coinService = new CoinService();
         }
     }
 
-    export const storePriceHistory = async (req: Request, res:Response) => {
+    const storePriceHistory = async (req, res) => {
         try{
             const result = await coinService.storePriceSnapshot();
 
-            const response: ApiResponse<any> = {
+            const response = {
                 success: result.success,
                 data: { count: result.count },
                 message:`Successfully stored price snapshot for ${result.count} coins` 
@@ -38,7 +36,7 @@ const coinService = new CoinService();
         }catch(error){
             console.error(`Error in storePriceHistory:`, error);
 
-            const response: ApiResponse<any> = {
+            const response = {
                 success: false,
                 message: 'Failed to store price snapshot'
             }
@@ -46,12 +44,12 @@ const coinService = new CoinService();
         }
     }
 
-    export const getCoinHistory = async (req: Request, res:Response) => {
+    const getCoinHistory = async (req, res) => {
         try{
             const { coinId } = req.params;
             const historyData = await coinService.getCoinHistory(coinId);
 
-            const response: ApiResponse<any> = {
+            const response = {
                 success: true,
                 data: historyData,
                 message: `History data for coin ${coinId} fetched successfully`  
@@ -60,7 +58,7 @@ const coinService = new CoinService();
         }catch(error){
             console.error(`Error in getCoinHistory:`, error);
 
-            const response: ApiResponse<any> = {
+            const response = {
                 success: false,
                 message: 'Failed to fetch coin history'
             }
@@ -69,11 +67,11 @@ const coinService = new CoinService();
         }
     }
 
-    export const getAllCoinHistory = async (req: Request, res:Response) => {
+    const getAllCoinHistory = async (req, res) => {
         try{
             const historyData = await coinService.getAllCoinHistory();
 
-            const response: ApiResponse<any> = {
+            const response = {
                 success: true,
                 data: historyData,
                 message: `All history data fetched successfully`  
@@ -82,7 +80,7 @@ const coinService = new CoinService();
         }catch(error){
             console.error(`Error in getAllCoinHistory:`, error);
 
-            const response: ApiResponse<any> = {
+            const response = {
                 success: false,
                 message: 'Failed to fetch all coin history'
             }
@@ -90,3 +88,10 @@ const coinService = new CoinService();
             res.status(500).json(response);
         }
     }
+
+module.exports = {
+    getCoins,
+    storePriceHistory,
+    getCoinHistory,
+    getAllCoinHistory
+};

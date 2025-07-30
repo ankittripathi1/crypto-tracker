@@ -1,10 +1,10 @@
-import cron from 'node-cron';
-import { CoinService } from '../services/coinService';
+const cron = require('node-cron');
+const { CoinService } = require('../services/coinService');
 
 
-export class PriceUpdateJob{
-    private isRunning:boolean = false;
-    private coinService: CoinService;
+class PriceUpdateJob{
+    isRunning = false;
+    coinService;
 
     constructor(){
         this.coinService = new CoinService();
@@ -54,3 +54,5 @@ export class PriceUpdateJob{
         }
     }
 }
+
+module.exports = { PriceUpdateJob };

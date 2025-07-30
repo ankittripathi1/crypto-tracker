@@ -1,5 +1,5 @@
 import cors from 'cors'
-import express from 'express'
+import express, { Request, Response } from 'express'
 import { requestLogger } from './middleware/requestLogger';
 import { errorHandler } from './middleware/errorHandler';
 import coinRoutes from './routes/coinRoutes';
@@ -18,7 +18,7 @@ app.use(requestLogger);
 
 const PORT = 4000
 
-app.get("/health",(req,res)=>{
+app.get("/health",(req:Request,res:Response)=>{
     res.json({
         status: 'OK',
         timestamp: new Date().toISOString(),
@@ -28,7 +28,7 @@ app.get("/health",(req,res)=>{
 
 app.use('/api', coinRoutes);
 
-app.use((req,res) => {
+app.use((req:Request,res:Response) => {
     res.status(404).json({
     success:false,
     error:'Route not found',

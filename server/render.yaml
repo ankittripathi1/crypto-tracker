@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: vr-automation-backend
+    env: node
+    # A root directory is optional. If you have a monorepo, you can specify the path to your backend here.
+    # For example, if your backend is in a 'server' folder, you'd use 'server'.
+    # Since your current working directory is already 'server', we'll assume this is the root for Render.
+    # If your GitHub repo root is above 'server', you'll need to adjust this to 'server'.
+    # For now, I'll leave it commented out, assuming this render.yaml is at the root of the repo you link to Render.
+    # rootDirectory: server
+    buildCommand: npm install && npm run build && npx prisma migrate deploy
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # Add your DATABASE_URL here. You should set this securely in Render's dashboard.
+      # - key: DATABASE_URL
+      #   value: your_database_connection_string
+      # Add any other environment variables your application needs
+      # - key: API_KEY
+      #   value: your_api_key

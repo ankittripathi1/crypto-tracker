@@ -23,8 +23,8 @@ const Dashboard: React.FC = () => {
 
             const matchesFilter =
                 filter === 'all' ||
-                (filter === 'positive' && coin.changePercentage >= 0) ||
-                (filter === 'negative' && coin.changePercentage < 0);
+                (filter === 'positive' && coin.changePercent >= 0) ||
+                (filter === 'negative' && coin.changePercent < 0);
 
             return matchesSearch && matchesFilter;
         });

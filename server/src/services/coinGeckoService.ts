@@ -9,7 +9,6 @@ class CoinGeckoService {
     }
 
     async fetchCoinsData(): Promise<CoinData[]>{
-        console.log('Fetching coins data from CoinGecko with URL:', `${this.baseUrl}/coins/markets`);
         try{
             const response = await axios.get(`${this.baseUrl}/coins/markets`, {
             params: {
@@ -19,7 +18,6 @@ class CoinGeckoService {
                 page: 1,
             },
             });
-            console.log('Fetched data from CoinGecko:', response.data);
 
             return response.data.map(this.transformCoinData)
         }catch(error){

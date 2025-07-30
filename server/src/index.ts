@@ -3,6 +3,7 @@ import express from 'express'
 import { requestLogger } from './middleware/requestLogger';
 import { errorHandler } from './middleware/errorHandler';
 import coinRoutes from './routes/coinRoutes';
+import { PriceUpdateJob } from './jobs/priceUpdateJob';
 
 const app = express();
 
@@ -39,4 +40,8 @@ app.use(errorHandler)
 
 app.listen(PORT,()=>{
     console.log(`Server is running on port: ${PORT}`);
+
+    // Start the price update job
+    const priceUpdateJob = new PriceUpdateJob();
+    priceUpdateJob.start();
 })

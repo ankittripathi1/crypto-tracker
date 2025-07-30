@@ -110,7 +110,7 @@ export default function CryptoTable({ data, sortField, sortDirection, onSort }: 
                                     </span>
                                 </td>
                                 <td className="px-6 py-4 text-right">
-                                    <div className={`flex items-center justify-end space-x-1 ${getPercentageColor(coin.changePercentage)}`}>
+                                    <div className={`flex items-center justify-end space-x-1 ${getPercentageColor(coin.changePercent)}`}>
                                         {getPercentageIcon(coin.changePercent)}
                                         <span className="font-semibold">
                                             {formatPercentage(coin.changePercent ?? 0)}

@@ -9,7 +9,7 @@ export const useCryptoData = ()=>{
     const [data, setData] = useState<CoinData[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const [lastUpadated, setLastUpdated] = useState<Date | null>(null);
+    const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
 
     const fetchCryptoData = useCallback(async ()=>{
         try{
@@ -67,7 +67,7 @@ export const useCryptoData = ()=>{
         data,
         loading,
         error,
-        lastUpadated,
+        lastUpdated,
         refetch: fetchCryptoData,
     }
 }

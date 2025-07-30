@@ -4,8 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "build": "npx prisma generate && npx tsc -b",
-        "start": "node ./build/index.js",
+        "build": "npx prisma generate && tsc",
+        "start": "ts-node -r tsconfig-paths/register src/index.ts",
         "dev": "npm run build && node ./build/index.js"
     },
     "prisma": {

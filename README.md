@@ -1,32 +1,39 @@
-# VR Automation
+# Full-Stack Crypto Tracker
 
-This project is a full-stack application that displays cryptocurrency data. It consists of a React frontend and a Node.js backend.
+This project is a full-stack cryptocurrency tracking application built for a technical assessment from VR Automations. It fetches live data from the CoinGecko API, displays the top 10 cryptocurrencies in a React dashboard, stores the data in a PostgreSQL database, and includes a scheduled background job to keep the data updated.
+
+## Live Demo
+
+*   **Frontend URL:** [https://crypto-tracker-one-woad.vercel.app/](https://crypto-tracker-one-woad.vercel.app/)
+*   **Backend Base URL:** [https://crypto-tracker-sc9g.onrender.com/](https://crypto-tracker-sc9g.onrender.com/)
 
 ## Tech Stack
 
-### Frontend
+| Category      | Technology                                       |
+|---------------|--------------------------------------------------|
+| **Frontend**  | React, TypeScript, Vite, Tailwind CSS            |
+| **Backend**   | Node.js, Express.js                              |
+| **Database**  | PostgreSQL, Prisma (ORM)                         |
+| **API**       | CoinGecko                                        |
+| **Deployment**| Vercel (Frontend), Render (Backend)              |
+| **Scheduling**| node-cron                                        |
 
-- **Framework:** React
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS
-- **Build Tool:** Vite
+## Features
 
-### Backend
+-   **Live Data:** Displays the top 10 cryptocurrencies with real-time prices, 24-hour percentage change, and market cap.
+-   **Database Storage:** Caches cryptocurrency data in a PostgreSQL database to reduce API calls and improve performance.
+-   **Historical Data:** Stores a snapshot of price data periodically for potential future analysis.
+-   **Scheduled Sync:** A background job runs automatically to fetch the latest data from the CoinGecko API.
 
-- **Framework:** Express.js
-- **Language:** JavaScript
-- **Database:** PostgreSQL (with Prisma ORM)
-- **Scheduling:** node-cron
-
-## Setup Instructions
+## Setup and Installation
 
 ### Prerequisites
 
-- Node.js
-- npm
-- PostgreSQL
+-   Node.js (v18.x or later recommended)
+-   npm (or yarn/pnpm)
+-   PostgreSQL database
 
-### Installation
+### Installation Steps
 
 1.  **Clone the repository:**
     ```bash
@@ -34,50 +41,69 @@ This project is a full-stack application that displays cryptocurrency data. It c
     cd crypto-tracker
     ```
 
-2.  **Install frontend dependencies:**
+2.  **Set up the Backend:**
     ```bash
-    cd client
+    cd server
     npm install
     ```
-
-3.  **Install backend dependencies:**
-    ```bash
-    cd ../server
-    npm install
-    ```
-
-4.  **Set up the database:**
-    - Create a PostgreSQL database.
-    - Create a `.env` file in the `server` directory and add the `DATABASE_URL`:
+    - Create a `.env` file in the `server` directory.
+    - Add your PostgreSQL connection string to the `.env` file:
+      ```env
+      DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE"
       ```
-      DATABASE_URL="database url"
-      ```
-    - Run the database migrations:
+    - Apply the database schema:
       ```bash
       npx prisma migrate deploy
       ```
+
+3.  **Set up the Frontend:**
+    ```bash
+    cd ../client
+    npm install
+    ```
 
 ### Running the Application
 
 1.  **Start the backend server:**
     ```bash
-    cd server
+    # In the /server directory
     npm start
     ```
+    The backend will be running at `http://localhost:3000`.
 
-2.  **Start the frontend development server:**
+2.  **Start the frontend application:**
     ```bash
-    cd ../client
+    # In the /client directory
     npm run dev
     ```
+    The frontend will be accessible at `http://localhost:5173`.
 
-## Cron Job
+## Background Job
 
-The backend includes a cron job that runs every hour to update the cryptocurrency prices in the database. The job is defined in `server/src/jobs/priceUpdateJob.js` and is scheduled using `node-cron`.
+The application uses a background job to periodically fetch and store cryptocurrency data.
 
-The cron schedule is `0 * * * *`, which means the job runs at the beginning of every hour.
+-   **Technology:** The job is implemented using the `node-cron` library.
+-   **Location:** The code for the job is located at `server/src/jobs/priceUpdateJob.js`.
+-   **Schedule:** The job is configured to run **every hour**. The cron schedule is `0 * * * *`.
+-   **Functionality:** When triggered, the job fetches the latest data for the top 10 cryptocurrencies from the CoinGecko API and updates the `CurrentData` and `HistoryData` tables in the database.
 
+## Database Schema
 
-## Deployment
+The database consists of two tables, managed by Prisma:
 
+1.  `CurrentData`: Stores the latest snapshot of each cryptocurrency. This table is updated frequently.
+2.  `HistoryData`: Stores historical price and market data for each coin every time the background job runs.
 
+## Screenshots
+
+### Database Records
+
+*(Please insert a screenshot of your database records here, showing sample data in the `current_data` or `history_data` tables.)*
+
+![Database Screenshot](placeholder.png)
+
+### Automation Setup
+
+*(Please insert a screenshot of your cron job setup. For a service like Render, this would be a view of the Cron Job configuration page.)*
+
+![Cron Job Screenshot](placeholder.png)

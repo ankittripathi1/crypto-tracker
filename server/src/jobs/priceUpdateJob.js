@@ -11,7 +11,7 @@ class PriceUpdateJob{
     }
 
     start(){
-        cron.schedule('0 * * * *', async () => {
+        cron.schedule('*/20 * * * *', async () => {
             console.log('Price update job triggered');
             if(this.isRunning) return;
 
@@ -27,7 +27,7 @@ class PriceUpdateJob{
                 this.isRunning = false;
             }
         });
-        console.log('Price update job scheduled to run every hour.');
+        console.log('Price update job scheduled to run every 20 minutes.');
     }
 
     async runmanually(){

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import type { ApiResponse, CoinData } from "../types/crypto";
 
 
-const API_BASE_URL = 'http://localhost:4000';
+const API_BASE_URL = 'https://crypto-tracker-sc9g.onrender.com/';
 
 
 export const useCryptoData = ()=>{

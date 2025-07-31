@@ -18,12 +18,6 @@ This project is a full-stack cryptocurrency tracking application built for a tec
 | **Deployment**| Vercel (Frontend), Render (Backend)              |
 | **Scheduling**| node-cron                                        |
 
-## Features
-
--   **Live Data:** Displays the top 10 cryptocurrencies with real-time prices, 24-hour percentage change, and market cap.
--   **Database Storage:** Caches cryptocurrency data in a PostgreSQL database to reduce API calls and improve performance.
--   **Historical Data:** Stores a snapshot of price data periodically for potential future analysis.
--   **Scheduled Sync:** A background job runs automatically to fetch the latest data from the CoinGecko API.
 
 ## Setup and Installation
 
@@ -98,12 +92,8 @@ The database consists of two tables, managed by Prisma:
 
 ### Database Records
 
-*(Please insert a screenshot of your database records here, showing sample data in the `current_data` or `history_data` tables.)*
-
-![Database Screenshot](placeholder.png)
+<img width="1245" height="486" alt="screenshot_20250731_144734" src="https://github.com/user-attachments/assets/71d79805-bfd7-44a6-be4d-2f57f2b5a1c4" />
 
 ### Automation Setup
 
-*(Please insert a screenshot of your cron job setup. For a service like Render, this would be a view of the Cron Job configuration page.)*
-
-![Cron Job Screenshot](placeholder.png)
+<img width="922" height="393" alt="screenshot_20250731_143113" src="https://github.com/user-attachments/assets/e8f6db82-8747-4ce7-bd99-4e77ca502e89" />

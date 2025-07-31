@@ -39,29 +39,15 @@ export const useCryptoData = ()=>{
         }
     },[]);
 
-    const storeHistorySnapshot = useCallback(async ()=>{
-        try{
-            await fetch(`${API_BASE_URL}/api/history`,{
-                method: 'POST',
-                headers:{
-                    'Content-Type': 'application/json'
-                }
-            });
-        }catch(error){
-            console.error("Error storing history snapshot:",error);
-        }
-    },[]);
-
     useEffect(()=>{
         fetchCryptoData();
 
         const interval = setInterval(()=>{
             fetchCryptoData();
-            storeHistorySnapshot();
         },1800000);
 
         return () => clearInterval(interval);
-    },[fetchCryptoData, storeHistorySnapshot]);
+    },[fetchCryptoData]);
 
     return {
         data,

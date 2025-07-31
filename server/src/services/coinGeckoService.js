@@ -5,6 +5,7 @@ class CoinGeckoService {
 
     constructor(){
         this.baseUrl = process.env.COINGECKO_API_URL || 'https://api.coingecko.com/api/v3';
+        this.apiKey = process.env.COINGECKO_API_KEY;
     }
 
     async fetchCoinsData(){
@@ -15,6 +16,7 @@ class CoinGeckoService {
                 order: 'market_cap_desc',
                 per_page: 10,
                 page: 1,
+                x_cg_demo_api_key: this.apiKey
             },
             });
 

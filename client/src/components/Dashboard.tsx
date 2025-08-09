@@ -102,44 +102,42 @@ const Dashboard: React.FC = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+        <div className="min-h-screen bg-gray-50">
             <div className="container mx-auto px-4 py-8">
                 {/* Header */}
-                <div className="mb-8">
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
-                        <div>
-                            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
-                                Crypto Dashboard
-                            </h1>
-                            <p className="text-gray-600">
-                                Real-time cryptocurrency market data
-                            </p>
-                        </div>
-                        <div className="flex items-center space-x-4 mt-4 sm:mt-0">
-                            {lastUpdated && (
-                                <div className="flex items-center text-sm text-gray-500">
-                                    <Clock className="w-4 h-4 mr-1" />
-                                    <span>Updated: {formatTimestamp(lastUpdated)}</span>
-                                </div>
-                            )}
-                            <button
-                                onClick={refetch}
-                                disabled={loading}
-                                className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
-                            >
-                                <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
-                                Refresh
-                            </button>
-                        </div>
-                    </div>
+                <div className="mb-8 text-center">
+                    <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-2">
+                        Crypto Tracker
+                    </h1>
+                    <p className="text-gray-500">
+                        Your real-time guide to the crypto market
+                    </p>
+                </div>
 
-                    {/* Search and Filter */}
+                {/* Controls */}
+                <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
                     <SearchBar
                         searchTerm={searchTerm}
                         onSearchChange={setSearchTerm}
                         filter={filter}
                         onFilterChange={setFilter}
                     />
+                    <div className="flex items-center space-x-4">
+                        {lastUpdated && (
+                            <div className="flex items-center text-sm text-gray-500">
+                                <Clock className="w-4 h-4 mr-1.5" />
+                                <span>Last updated: {formatTimestamp(lastUpdated)}</span>
+                            </div>
+                        )}
+                        <button
+                            onClick={() => refetch()}
+                            disabled={loading}
+                            className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105"
+                        >
+                            <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
+                            <span>{loading ? 'Refreshing...' : 'Refresh'}</span>
+                        </button>
+                    </div>
                 </div>
 
                 {/* Error Banner */}

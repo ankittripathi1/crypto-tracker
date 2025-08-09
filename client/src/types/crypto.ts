@@ -16,6 +16,7 @@ export interface CoinData {
     marketCap: number;
     changePercent: number;
     timestamp: string;
+    iconUrl?: string;
 }
 
 export interface ApiResponse<T>{
